@@ -1,0 +1,29 @@
+[
+	{
+		"action": "add_slave",
+		"host": "::1",
+		"port": "8888"
+	},
+	{
+		"action": "add_slave",
+		"host": "::1",
+		"port": "8889"
+	},
+	{
+		"action": "add_slave",
+		"host": "::1",
+		"port": "8890"
+	},
+	{
+		"action": "add_map",
+		"map": "map"
+	},
+	{
+		"action": "add_reduce",
+		"reduce": "reduce"
+	},
+	{
+		"action": "add_data",
+		"data": "data"
+	}
+]

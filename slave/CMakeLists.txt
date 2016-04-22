@@ -1,0 +1,13 @@
+project(slave CXX)
+set(SOURCE_FILES main.cpp main.h)
+#set(LOGGING ../lib/logging/logging.cpp)
+#set(TCPSERVER ../lib/tcpserver/tcpserver.cpp)
+#set(CONFREADER ../lib/confreader/confreader.cpp)
+#set(JSON ../lib/json/json.cpp)
+#add_library(logging ${LOGGING})
+#add_library(tcpserver ${TCPSERVER})
+#add_library(confreader ${CONFREADER})
+#add_library(json ${JSON})
+add_executable(slave ${SOURCE_FILES})
+target_link_libraries(slave LINK_PUBLIC tcpserver logging confreader json ${Boost_LIBRARIES})
+
