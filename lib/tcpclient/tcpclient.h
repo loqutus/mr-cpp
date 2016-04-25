@@ -12,9 +12,11 @@ public:
     tcpclient(std::string host, std::string port);
     int write(std::string message);
     std::string read();
+	void close();
 private:
     boost::asio::io_service aios;
     boost::asio::ip::tcp::socket socket;
+	boost::system::error_code error_code;
 };
 
 

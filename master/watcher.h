@@ -14,9 +14,6 @@
 class watcher{
 public:
 	void watch();
-	bool check_pod_in_containers(std::string pod_name, std::vector<std::string> containers_list);
-	std::unordered_map<std::string, std::list<std::string> > get_running_containers();
-	std::string run_container(std::string slave, std::string image, std::string command);
 };
 
 #endif //PROJECT_WATCHER_H

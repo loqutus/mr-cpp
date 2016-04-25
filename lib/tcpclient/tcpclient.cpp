@@ -14,11 +14,15 @@ int tcpclient::write(std::string message) {
 
 std::string tcpclient::read() {
     std::array<char, 1048576> buf;
-    boost::system::error_code error;
-    size_t len = socket.read_some(boost::asio::buffer(buf), error);
-    if (error == boost::asio::error::eof)
+    size_t len = socket.read_some(boost::asio::buffer(buf), error_code);
+    if (error_code == boost::asio::error::eof)
         return std::string(buf.data());
-    else if (error)
-        throw boost::system::system_error(error);
+    else if (error_code)
+        throw boost::system::system_error(error_code);
 	return std::string(buf.data());
+}
+
+void tcpclient::close() {
+	socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, error_code);
+	socket.close(error_code);
 }

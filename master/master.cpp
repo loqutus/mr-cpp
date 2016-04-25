@@ -39,7 +39,37 @@ std::string master::do_action(std::unordered_map<std::string, std::string> json_
 		log_obj.write("add_task", task_name);
 		return_string = std::string("task added");
 	}
+	else if(action == std::string("add_map")){
+		std::string map_name = json_map[std::string("name")];
+		write_to_file("map", map_name, json_map["map"]);
+		log_obj.write("add_map", map_name);
+		return_string = std::string("map added");
+	}
+	else if(action == std::string("add_reduce")){
+		std::string reduce_name = json_map[std::string("name")];
+		write_to_file("reduce", reduce_name, json_map["reduce"]);
+		log_obj.write("add_reduce", reduce_name);
+		return_string = std::string("reduce added");
+	}
+	else if(action == std::string("add_data")){
+		std::string data_name = json_map[std::string("name")];
+		write_to_file("data", data_name, json_map["data"]);
+		log_obj.write("add_data", data_name);
+		return_string = std::string("data added");
+	}
+	else if(action == std::string("add_union")){
+		std::string union_name = json_map[std::string("name")];
+		write_to_file("union", union_name, json_map["data"]);
+		log_obj.write("union_data", union_name);
+		return_string = std::string("union added");
+	}
 	return return_string;
+}
+
+int master::write_to_file(std::string kind, std::string name, std::string data){
+	std::string filename = kind + '/' + name;
+	file_write wf(filename);	
+	return 0;
 }
 
 master::~master(){

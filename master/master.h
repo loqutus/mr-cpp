@@ -6,10 +6,12 @@
 #include "../lib/tcpserver/tcpserver.h"
 #include "../lib/json/json.h"
 #include "../lib/storage/storage.h"
+#include "../lib/file_write/file_write.h"
 #include <iostream>
 
 class master{
 	const std::string server_port;
+	int write_to_file(std::string kind, std::string name, std::string data);
 public:
 	master();
 	~master();
