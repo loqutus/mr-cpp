@@ -34,10 +34,10 @@ std::string master::do_action(std::unordered_map<std::string, std::string> json_
 		return_string = std::string("slave added");
 	}
 	else if(action == std::string("add_task")){
-		std::string task_name = json_map[std::string("map")];
-		store.set_pod(pod_name, json_map);
+		std::string task_name = json_map[std::string("name")];
+		store.set_task(task_name, json_map);
 		log_obj.write("add_task", task_name);
-		return_string = std::string("map added");
+		return_string = std::string("task added");
 	}
 	return return_string;
 }

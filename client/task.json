@@ -1,0 +1,7 @@
+{
+	"action": "add_task",
+	"name": "example",
+	"data": "data",
+	"map": "map",
+	"reduce": "reduce"
+}

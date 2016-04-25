@@ -6,9 +6,9 @@
 #include <iostream>
 
 class read_file {
-	std::string file_str;
+	std::string file_name;
 public:
-    read_file(std::string filename);
+    read_file(std::string file_name);
 	std::string read();
 };
 
