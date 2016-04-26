@@ -20,6 +20,9 @@ int main(int argc, char** argv){
 	json_tcpclient.close();
 	json json_obj(json_file_str);
 	auto json_map = json_obj.get_map();
+	if(json_map["action"] == std::string("add_slave")){
+		return 0;
+	}
 	auto map_name = json_map[std::string("map")];
 	auto reduce_name = json_map[std::string("reduce")];
 	auto data_name = json_map[std::string("data")];

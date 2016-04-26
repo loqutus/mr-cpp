@@ -18,8 +18,7 @@ int tcpserver::accept() {
 }
 
 std::string tcpserver::read() {
-    int i=1;
-    std::array<char, 1048576> buf;
+    std::vector<char> buf(1048576);
     boost::system::error_code error;
     size_t len = socket.read_some(boost::asio::buffer(buf), error);
     if(error == boost::asio::error::eof)
