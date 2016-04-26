@@ -15,6 +15,7 @@ void master::listen(){
 		server.accept();
 		log_obj.write("client connect");
 		std::string s = server.read();
+		log_obj.write("1");
 		json json_object(s);
 		std::unordered_map<std::string, std::string> json_map = json_object.get_map();
 		std::string action = json_map[std::string("action")];
@@ -67,7 +68,7 @@ std::string master::do_action(std::unordered_map<std::string, std::string> json_
 }
 
 int master::write_to_file(std::string kind, std::string name, std::string data){
-	std::string filename = kind + '/' + name;
+	std::string filename = kind + std::string("/") + name;
 	file_write wf(filename);	
 	return 0;
 }
