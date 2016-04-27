@@ -15,6 +15,7 @@ void master::listen(){
 		server.accept();
 		log_obj.write("Master: client connect");
 		std::string s = server.read();
+		log_obj.write(s.c_str());
 		json json_object(s);
 		std::unordered_map<std::string, std::string> json_map = json_object.get_map();
 		std::string action = json_map[std::string("action")];
@@ -41,13 +42,19 @@ std::string master::do_action(std::unordered_map<std::string, std::string> json_
 	}
 	else if(action == std::string("add_map")){
 		std::string map_name = json_map[std::string("name")];
-		write_to_file("map", map_name, json_map["map"]);
+		write_to_file("map", map_name, json_map["data"]);
 		log_obj.write("Master: add_map", map_name);
 		return_string = std::string("map added");
 	}
+	else if(action == std::string("add_pre_map")){
+		std::string pre_map_name = json_map[std::string("name")];
+		write_to_file("pre_map", pre_map_name, json_map["data"]);
+		log_obj.write("Master: add_pre_map", pre_map_name);
+		return_string = std::string("pre_map added");
+	}
 	else if(action == std::string("add_reduce")){
 		std::string reduce_name = json_map[std::string("name")];
-		write_to_file("reduce", reduce_name, json_map["reduce"]);
+		write_to_file("reduce", reduce_name, json_map["data"]);
 		log_obj.write("Master: add_reduce", reduce_name);
 		return_string = std::string("reduce added");
 	}

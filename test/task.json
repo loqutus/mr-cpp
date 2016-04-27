@@ -1,8 +1,9 @@
 {
 	"action": "add_task",
 	"name": "example",
-	"data": "data",
-	"map": "map",
-	"reduce": "reduce",
-	"union": "union"
+	"data": "alice.txt",
+	"pre_map": "pre_map.bin",
+	"map": "map.bin",
+	"reduce": "reduce.bin",
+	"union": "union.bin"
 }
