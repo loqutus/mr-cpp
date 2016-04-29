@@ -13,6 +13,7 @@
 class json {
 	std::string input_string;
 	std::unordered_map<std::string, std::string> input_map;
+	bool has_suffix(std::string &str, std::string &suffix);
 public:
 	json(std::string input);
 	json(std::unordered_map<std::string, std::string> input);

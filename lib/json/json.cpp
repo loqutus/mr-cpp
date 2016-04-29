@@ -12,13 +12,25 @@ json::~json(){
 	input_string.clear();
 }
 
+bool json::has_suffix(std::string &str, std::string &suffix)
+{
+	    return str.size() >= suffix.size() && str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
+}
+
 std::string json::get_string(){
+	std::string suffix("\n");
 	std::string str("{");
 	for(auto kv:this->input_map){
+		std::string first = kv.first;
+		std::string second = kv.second;
+		if(has_suffix(first, suffix))
+			first.pop_back();
+		if(has_suffix(second, suffix))
+		   second.pop_back();	
 		str += " \"";
-		str += kv.first;
+		str += first;
 		str += "\" : \"";
-	    str += kv.second;
+	    str += second;
 		str += "\" ,";
 	}
 	str.pop_back();

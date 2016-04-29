@@ -15,7 +15,6 @@ void master::listen(){
 		server.accept();
 		log_obj.write("Master: client connect");
 		std::string s = server.read();
-		log_obj.write(s.c_str());
 		json json_object(s);
 		std::unordered_map<std::string, std::string> json_map = json_object.get_map();
 		std::string action = json_map[std::string("action")];

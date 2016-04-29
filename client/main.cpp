@@ -15,7 +15,6 @@ int send_to_server(std::unordered_map<std::string, std::string> json_map, std::s
 	read_file file(name);
 	auto str = file.read();
 	tcpclient client(host, port);
-	std::cout << add_action(std::string("add_")+kind, name, str);
 	client.write(add_action(std::string("add_")+kind, name, str));
 	std::cout << client.read() << std::endl;
 	client.close();
