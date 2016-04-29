@@ -6,7 +6,7 @@ mkdir union
 mkdir data
 mkdir reduce
 cd ../build/
-./build.sh
+./build.sh || exit 1
 cd ../test
 ../build/master/master &
 sleep 1

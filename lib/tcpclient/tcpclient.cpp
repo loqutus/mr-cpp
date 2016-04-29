@@ -1,28 +1,65 @@
 #include "tcpclient.h"
 
-tcpclient::tcpclient(std::string host, std::string port) : socket(boost::asio::ip::tcp::socket(aios)) {
-    boost::asio::ip::tcp::resolver resolver(aios);
-    boost::asio::ip::tcp::resolver::iterator endpoint = resolver.resolve(
-            boost::asio::ip::tcp::resolver::query(host.c_str(), port.c_str()));
-    boost::asio::connect(socket, endpoint);
+tcpclient::tcpclient(std::string host, std::string port):
+host(host), port(port){
 }
 
-int tcpclient::write(std::string message) {
-    boost::asio::write(socket, boost::asio::buffer(message));
+int tcpclient::write_string(std::string type, std::string message) {
+    network_stream.expires_from_now(boost::posix_time::seconds(60));
+    network_stream.connect(host, port);
+    std::string answer;
+	if(!network_stream)
+		return 1;
+    this->network_stream << type;
+    this->network_stream.flush();
+    this->network_stream >> answer;
+    if(answer!= std::string("OK"))
+        return 1;
+	this->network_stream << message;
+	this->network_stream.flush();
+    this->network_stream >> answer;
+    if(answer!=std::string("OK"))
+        return 1;
     return 0;
 }
 
+int tcpclient::write_file(std::string type, std::string name, std::string filename) {
+    std::string answer;
+    this->read_buf = new char[this->buffer_size];
+    network_stream.expires_from_now(boost::posix_time::seconds(60));
+    network_stream.connect(host, port);
+    if(!network_stream)
+        return 1;
+    std::ifstream is(filename.c_str(), std::ios::in|std::ios::binary);
+    if(!is)
+        return 1;
+    this->network_stream << type;
+    this->network_stream.flush();
+    this->network_stream >> answer;
+    if(answer!=std::string("OK"))
+        return 1;
+    this->network_stream << name;
+    this->network_stream.flush();
+    this->network_stream >> answer;
+    if (answer!=std::string("OK"))
+        return 1;
+    while(!is.eof()){
+        is.read(this->read_buf, this->buffer_size);
+        network_stream << read_buf;
+    }
+    this->network_stream.flush();
+    this->network_stream >> answer;
+    if(answer!=std::string("OK"))
+        return 1;
+	return 0;
+}
+
 std::string tcpclient::read() {
-    std::array<char, 1048576> buf;
-    size_t len = socket.read_some(boost::asio::buffer(buf), error_code);
-    if (error_code == boost::asio::error::eof)
-        return std::string(buf.data());
-    else if (error_code)
-        throw boost::system::system_error(error_code);
-	return std::string(buf.data());
+	std::string read_data;
+	network_stream >> read_data;
+	return read_data;
 }
 
 void tcpclient::close() {
-	socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, error_code);
-	socket.close(error_code);
+	this->network_stream.close();
 }

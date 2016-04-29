@@ -7,7 +7,6 @@ std::string add_action(std::string action, std::string name, std::string data){
 	json_map["data"] = data;
 	json json_obj(json_map);
 	return json_obj.get_string();
-	
 }
 
 int send_to_server(std::unordered_map<std::string, std::string> json_map, std::string kind, std::string host, std::string port){
