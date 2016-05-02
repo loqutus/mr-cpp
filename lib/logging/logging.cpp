@@ -9,10 +9,19 @@ logging::~logging() {
 }
 
 int logging::write(const char *left, std::string right) {
-	right.erase(std::remove(right.begin(), right.end(), '\n'), right.end());
-    time_t rawtime;
-    time(&rawtime);
-    std::string time_str(ctime(&rawtime));
-    logfile << time_str.substr(0, time_str.size()-1) << " " << left << " " << right << std::endl;
+    while(true){
+        if(!this->lock){
+            this->lock = true;
+	        right.erase(std::remove(right.begin(), right.end(), '\n'), right.end());
+            time_t rawtime;
+            time(&rawtime);
+            std::string time_str(ctime(&rawtime));
+            logfile << time_str.substr(0, time_str.size()-1) << " " << left << " " << right << std::endl;
+            this->lock = false;
+            break;
+        }
+        else
+            std::this_thread::slee;_for(std::chrono::milliseconds(1));
+    }
     return 0;
 }

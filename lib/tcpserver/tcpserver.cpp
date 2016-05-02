@@ -3,13 +3,7 @@
 tcpserver::tcpserver(std::string port, std::string host) : 
 endpoint(boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string(host.c_str()), 
 boost::lexical_cast<unsigned short>(port))), 
-acceptor(boost::asio::ip::tcp::acceptor(io_service, endpoint)),
-socket(boost::asio::ip::tcp::socket(io_service)) {
-
-}
-
-tcpserver::~tcpserver() {
-    socket.close();
+acceptor(boost::asio::ip::tcp::acceptor(io_service, endpoint)){
 }
 
 int tcpserver::accept() {

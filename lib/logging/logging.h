@@ -6,10 +6,12 @@
 #include <time.h>
 #include <algorithm>
 #include <memory>
+#include <thread>
 #include "../confreader/confreader.h"
 
 class logging {
     std::ofstream logfile;
+    bool lock = false;
 public:
     logging(std::string logfilename);
 

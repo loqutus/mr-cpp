@@ -6,10 +6,13 @@
 #include <unordered_map>
 #include <vector>
 #include <memory>
+#include <thread>
 
 class storage {
 	std::unordered_map<std::string, std::unordered_map<std::string, std::string> > slaves_map;
 	std::unordered_map<std::string, std::unordered_map<std::string, std::string> > tasks_map;
+    bool slaves_lock = false;
+    bool tasks_lock = false;
 public:
     ~storage();
     int set_slave(std::string key, std::unordered_map<std::string, std::string> value);

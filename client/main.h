@@ -7,6 +7,5 @@
 #include <chrono>
 #include <thread>
 int main(int argc, char** argv);
-int send_to_server(std::unordered_map<std::string, std::string> json_map, std::string kind, std::string host, std::string port);
-std::string add_action(std::string action, std::string kind, std::string data);
+int send_to_server(std::string name, std::string type, std::string filename, std::string host, std::string port);
 #endif //PROJECT_MAIN_H
