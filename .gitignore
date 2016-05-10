@@ -4,3 +4,4 @@ build/*
 *.swp
 *.log
 test/alice.txt
+tags
