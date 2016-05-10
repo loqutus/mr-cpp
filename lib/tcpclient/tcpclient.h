@@ -16,8 +16,6 @@ private:
 	boost::asio::ip::tcp::iostream network_stream;
 	std::string host;
 	std::string port;
-    int buffer_size=1073741824;
-    char* read_buf;
 };
 
 
