@@ -7,16 +7,15 @@
 #include <algorithm>
 #include <memory>
 #include <thread>
+#include <mutex>
 #include "../confreader/confreader.h"
 
 class logging {
     std::ofstream logfile;
-    bool lock = false;
+    std::mutex mutex;
 public:
     logging(std::string logfilename);
-
     ~logging();
-
     int write(const char* left, std::string right=std::string(""));
 };
 

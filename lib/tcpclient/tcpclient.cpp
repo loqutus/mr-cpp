@@ -5,10 +5,10 @@ host(host), port(port){
 }
 
 int tcpclient::write_string(std::string type, std::string message) {
-    network_stream.expires_from_now(boost::posix_time::seconds(60));
-    network_stream.connect(host, port);
+    this->network_stream.expires_from_now(boost::posix_time::seconds(60));
+    this->network_stream.connect(host, port);
     std::string answer;
-	if(!network_stream)
+	if(!this->network_stream)
 		return 1;
     this->network_stream << type;
     this->network_stream.flush();
@@ -25,10 +25,10 @@ int tcpclient::write_string(std::string type, std::string message) {
 
 int tcpclient::write_file(std::string type, std::string name, std::string filename) {
     std::string answer;
-    this->read_buf = new char[this->buffer_size];
-    network_stream.expires_from_now(boost::posix_time::seconds(60));
-    network_stream.connect(host, port);
-    if(!network_stream)
+    read_buf = new char[this->buffer_size];
+    this->network_stream.expires_from_now(boost::posix_time::seconds(60));
+    this->network_stream.connect(host, port);
+    if(!this->network_stream)
         return 1;
     std::ifstream is(filename.c_str(), std::ios::in|std::ios::binary);
     if(!is)
@@ -54,10 +54,14 @@ int tcpclient::write_file(std::string type, std::string name, std::string filena
 	return 0;
 }
 
-std::string tcpclient::read() {
+std::string tcpclient::read_string() {
 	std::string read_data;
-	network_stream >> read_data;
+	this->network_stream >> read_data;
 	return read_data;
+}
+
+int tcpserver::read_file() {
+    std::string 
 }
 
 void tcpclient::close() {
